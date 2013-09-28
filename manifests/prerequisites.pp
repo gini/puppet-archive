@@ -16,4 +16,4 @@ class archive::prerequisites {
   package { $archive_packages:
     ensure => installed,
   }
-}  
+}
