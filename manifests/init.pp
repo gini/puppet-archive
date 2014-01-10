@@ -15,6 +15,7 @@
 # - *$extension: Default value ".tar.gz"
 # - *$timeout: Default value 120
 # - *$allow_insecure: Default value false
+# - *$install_dependencies: Default value true
 # - *$username: set basic auth username
 # - *$password: set basic auth password
 # - *$proxy: HTTP proxy in the form of "hostname:port"; e.g. "myproxy:8080"
@@ -37,16 +38,17 @@
 define archive (
   $url,
   $target,
-  $ensure         = present,
-  $checksum       = true,
-  $digest_url     = '',
-  $digest_string  = '',
-  $digest_type    = 'md5',
-  $timeout        = 120,
-  $root_dir       = '',
-  $extension      = 'tar.gz',
-  $src_target     = '/usr/src',
-  $allow_insecure = false,
+  $ensure               = present,
+  $checksum             = true,
+  $digest_url           = '',
+  $digest_string        = '',
+  $digest_type          = 'md5',
+  $timeout              = 120,
+  $root_dir             = '',
+  $extension            = 'tar.gz',
+  $src_target           = '/usr/src',
+  $allow_insecure       = false,
+  $install_dependencies = true,
   $username = undef,
   $password = undef,
   $proxy          = undef ){
