@@ -47,12 +47,14 @@ define archive::extract (
     present: {
 
       $extract_zip    = "unzip -o ${src_target}/${name}.${extension} -d ${extract_dir}"
+      $extract_tar  = "tar --no-same-owner --no-same-permissions --strip-components=${strip_components} -xf ${src_target}/${name}.${extension} -C ${extract_dir}"
       $extract_targz  = "tar --no-same-owner --no-same-permissions --strip-components=${strip_components} -xzf ${src_target}/${name}.${extension} -C ${extract_dir}"
       $extract_tarxz  = "tar --no-same-owner --no-same-permissions --strip-components=${strip_components} -xJf ${src_target}/${name}.${extension} -C ${extract_dir}"
       $extract_tarbz2 = "tar --no-same-owner --no-same-permissions --strip-components=${strip_components} -xjf ${src_target}/${name}.${extension} -C ${extract_dir}"
 
       $unpack_command = $extension ? {
         'zip'                => "mkdir -p ${extract_dir} && ${extract_zip}",
+        'tar'                => "mkdir -p ${extract_dir} && ${extract_tar}",
         /(tar.gz|tgz)/       => "mkdir -p ${extract_dir} && ${extract_targz}",
         /(tar.xz|txz)/       => "mkdir -p ${extract_dir} && ${extract_tarxz}",
         /(tar.bz2|tbz|tbz2)/ => "mkdir -p ${extract_dir} && ${extract_tarbz2}",
