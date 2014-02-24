@@ -54,8 +54,10 @@ define archive (
   $username         = undef,
   $password         = undef,
   $proxy            = undef,
-  $dependency_class = Class['archive::prerequisites'],
+  $dependency_class = 'archive::prerequisites',
   $exec_path        = ['/usr/local/bin', '/usr/bin', '/bin']) {
+
+  include $dependency_class
 
   archive::download {"${name}.${extension}":
     ensure         => $ensure,
@@ -70,7 +72,7 @@ define archive (
     username       => $username,
     password       => $password,
     proxy          => $proxy,
-    require        => $dependency_class,
+    require        => Class[$dependency_class],
     exec_path      => $exec_path,
   }
 
