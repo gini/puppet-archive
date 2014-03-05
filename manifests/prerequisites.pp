@@ -12,7 +12,9 @@ class archive::prerequisites {
   $packages = [ 'curl', 'unzip', 'tar', ]
 
   # install additional packages if missing
+  anchor { 'archive::prerequisites::begin': } ->
   package { $packages:
     ensure => installed,
-  }
+  } -> 
+  anchor { 'archive::prerequisites::end': }
 }

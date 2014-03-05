@@ -89,7 +89,6 @@ define archive::download (
               creates => "${src_target}/${name}.${digest_type}",
               timeout => $timeout,
               notify  => Exec["download archive ${name} and check sum"],
-              require => Package['curl'],
             }
 
           }
@@ -146,7 +145,6 @@ define archive::download (
         creates     => "${src_target}/${name}",
         logoutput   => true,
         timeout     => $timeout,
-        require     => Package['curl'],
         notify      => $notify,
         refreshonly => $refreshonly,
       }
