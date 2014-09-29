@@ -8,6 +8,7 @@
 # - *$src_target: Default value '/usr/src'.
 # - *$root_dir: Default value ''.
 # - *$extension: Default value '.tar.gz'.
+# - *$user: Default value 'root'.
 # - *$timeout: Default value 120.
 # - *$exec_path: Path being searched for all Exec resources, default: ['/usr/local/bin', '/usr/bin', '/bin']
 #
@@ -33,6 +34,7 @@ define archive::extract (
   $src_target       = '/usr/src',
   $root_dir         = '',
   $extension        = 'tar.gz',
+  $user             = 'root',
   $timeout          = 120,
   $strip_components = 0,
   $exec_path        = ['/usr/local/bin', '/usr/bin', '/bin']) {
@@ -67,6 +69,7 @@ define archive::extract (
         command => $unpack_command,
         path    => $exec_path,
         creates => $extract_dir,
+        user    => $user,
         timeout => $timeout
       }
     }

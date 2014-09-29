@@ -17,6 +17,7 @@
 # - *$allow_insecure: Default value false
 # - *$allow_redirects: Default value true
 # - *$strip_components: Strip the top most n directories from each file name; default value 0
+# - *$target_owner: Default value 'root'
 # - *$username: set basic auth username
 # - *$password: set basic auth password
 # - *$proxy: HTTP proxy in the form of "hostname:port"; e.g. "myproxy:8080"
@@ -53,6 +54,7 @@ define archive (
   $allow_insecure   = false,
   $allow_redirects  = true,
   $strip_components = 0,
+  $target_owner     = 'root',
   $username         = undef,
   $password         = undef,
   $proxy            = undef,
@@ -83,6 +85,7 @@ define archive (
     src_target       => $src_target,
     root_dir         => $root_dir,
     extension        => $extension,
+    user             => $target_owner,
     timeout          => $timeout,
     strip_components => $strip_components,
     exec_path        => $exec_path,
