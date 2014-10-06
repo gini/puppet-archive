@@ -1,6 +1,7 @@
 language: ruby
-script: "rake spec lint"
+script: "rake rspec lint && puppet apply tests/init.pp --noop --modulepath spec/fixtures/modules/"
 rvm:
+  - 1.8.7
   - 1.9.2
   - 1.9.3
   - 2.0.0
@@ -12,5 +13,11 @@ matrix:
   exclude:
     - rvm: 2.0.0
       env: PUPPET_VERSION="~> 2.7.0"
+  exclude:
+    - rvm: 1.8.7
+      env: PUPPET_VERSION="~> 3.2.0"
+  exclude:
+    - rvm: 1.8.7
+      env: PUPPET_VERSION="~> 3.4.0"
 gemfile: .gemfile
 

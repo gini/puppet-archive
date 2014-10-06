@@ -1,2 +1,4 @@
 /metadata.json
 /.project
+/.gemfile.lock
+/.bundle/config
