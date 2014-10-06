@@ -1,7 +1,7 @@
 Puppet Archive Module
 =====================
 
-[![Build Status](https://secure.travis-ci.org/gini/puppet-archive.png)](http://travis-ci.org/gini/puppet-archive)
+[![Build Status](https://secure.travis-ci.org/wavesoftware/puppet-archive.png)](http://travis-ci.org/wavesoftware/puppet-archive)
 
 Overview
 --------
@@ -34,6 +34,9 @@ Supported Platforms
 The module has been tested on the following operating systems. Testing and patches for other platforms are welcome.
 
 * Debian Linux 7.0 (Wheezy)
+* Ubuntu 13.04
+* RHEL 6.5
+* Oracle Linux 6.5
 
 
 Support
@@ -61,3 +64,4 @@ Contributors
 * Zijad Purkovic (zajk)
 * Martin Konrad (mark0n)
 * Brendan Murtagh (bmurt)
+* Krzysztof Suszyński (cardil)
