@@ -35,8 +35,8 @@ The module has been tested on the following operating systems. Testing and patch
 
 * Debian Linux 7.0 (Wheezy)
 * Ubuntu 13.04
-* RHEL 6.5
-* Oracle Linux 6.5
+* RHEL 6.x
+* Oracle Linux 6.x
 
 
 Support
