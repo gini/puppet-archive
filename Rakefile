@@ -24,8 +24,8 @@ task :default => [ :rspec, :smoke ]
 begin
   if Gem::Specification::find_by_name('puppet-lint')
     require 'puppet-lint/tasks/puppet-lint'
-    PuppetLint.configuration.ignore_paths = ["spec/**/*.pp", "vendor/**/*.pp"]
-    task :default => [:rspec, :lint, :smoke ]
+    PuppetLint.configuration.ignore_paths = [ "spec/**/*.pp", "vendor/**/*.pp", "pkg/*" ]
+    task :default => [:rspec, :smoke, :lint ]
   end
 rescue Gem::LoadError
 end

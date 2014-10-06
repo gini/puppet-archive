@@ -2,3 +2,4 @@
 /.project
 /.gemfile.lock
 /.bundle/config
+/pkg/*
