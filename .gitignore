@@ -3,3 +3,4 @@
 /.gemfile.lock
 /.bundle/config
 /pkg/*
+/Gemfile.lock

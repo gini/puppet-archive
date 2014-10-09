@@ -58,7 +58,7 @@ define archive (
   $proxy            = undef,
   $dependency_class = Class['archive::prerequisites'],
   $exec_path        = ['/usr/local/bin', '/usr/bin', '/bin']) {
-    
+
   if $dependency_class == Class['archive::prerequisites'] {
     include archive::prerequisites
   }
