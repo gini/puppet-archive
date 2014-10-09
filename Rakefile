@@ -10,5 +10,7 @@ PuppetLint.configuration.send('disable_single_quote_string_with_variables')
 PuppetLint.configuration.ignore_paths = ["spec/**/*.pp", "pkg/**/*.pp"]
 
 task :smoke do
-    sh 'puppet apply tests/init.pp --noop --modulepath ../'
+  Rake::Task[:spec_prep].invoke
+  sh "puppet apply tests/init.pp --noop --modulepath spec/fixtures/modules"
+  Rake::Task[:spec_clean].invoke
 end
