@@ -59,6 +59,10 @@ define archive (
   $dependency_class = Class['archive::prerequisites'],
   $exec_path        = ['/usr/local/bin', '/usr/bin', '/bin']) {
 
+  if $dependency_class == Class['archive::prerequisites'] {
+    include archive::prerequisites
+  }
+
   archive::download {"${name}.${extension}":
     ensure          => $ensure,
     url             => $url,
@@ -86,6 +90,9 @@ define archive (
     timeout          => $timeout,
     strip_components => $strip_components,
     exec_path        => $exec_path,
-    require          => Archive::Download["${name}.${extension}"]
+    require          => [
+      Archive::Download["${name}.${extension}"],
+      $dependency_class
+    ],
   }
 }

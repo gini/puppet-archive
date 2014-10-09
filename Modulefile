@@ -1,5 +1,5 @@
 name         'gini-archive'
-version      '0.2.0'
+version      '0.2.2'
 author       'Jochen Schalanda'
 license      'Apache 2.0'
 project_page 'https://github.com/gini/puppet-archive'
