@@ -1,7 +1,7 @@
 Puppet Archive Module
 =====================
 
-[![Build Status](https://secure.travis-ci.org/wavesoftware/puppet-archive.png)](http://travis-ci.org/wavesoftware/puppet-archive)
+[![Build Status](https://secure.travis-ci.org/gini/puppet-archive.png)](http://travis-ci.org/gini/puppet-archive)
 
 Overview
 --------
