@@ -12,7 +12,5 @@ class archive::prerequisites {
   $packages = [ 'curl', 'unzip', 'tar', ]
 
   # install additional packages if missing
-  package { $packages:
-    ensure => installed,
-  }
+  ensure_packages($packages, {ensure => installed})
 }
