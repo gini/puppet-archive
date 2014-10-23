@@ -7,12 +7,15 @@
 # None
 #
 class archive::prerequisites {
+  if !defined(Package['curl']) {
+    package{'curl': ensure => present }
+  }
 
-  # list of packages needed for download and extraction
-  $packages = [ 'curl', 'unzip', 'tar', ]
+  if !defined(Package['tar']) {
+    package{'tar': ensure => present }
+  }
 
-  # install additional packages if missing
-  package { $packages:
-    ensure => installed,
+  if !defined(Package['unzip']) {
+    package{'unzip': ensure => present }
   }
 }
