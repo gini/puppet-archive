@@ -57,7 +57,11 @@ define archive (
   $proxy            = undef,
   $exec_path        = ['/usr/local/bin', '/usr/bin', '/bin']) {
 
-  class {'archive::prerequisites': }
+  # list of packages needed for download and extraction
+  $packages = [ 'curl', 'unzip', 'tar', ]
+
+  # install additional packages if missing
+  ensure_packages($packages, {ensure => installed})
 
   archive::download {"${name}.${extension}":
     ensure          => $ensure,
@@ -73,7 +77,7 @@ define archive (
     username        => $username,
     password        => $password,
     proxy           => $proxy,
-    require         => Class['archive::prerequisites'],
+    require         => Package[$packages],
     exec_path       => $exec_path,
   }
 
