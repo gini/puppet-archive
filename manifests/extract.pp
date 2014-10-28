@@ -37,23 +37,22 @@ define archive::extract (
   $timeout          = 120,
   $strip_components = 0,
   $exec_path        = ['/usr/local/bin', '/usr/bin', '/bin']) {
-  
-  if $nested_dir {
-    $extract_dir = $target
-    $creates_dir = "${target}/${name}"
-  } else {
-    
-    if $root_dir != '' {
-      $extract_dir = "${target}/${root_dir}"
-    } else {
-      $extract_dir = "${target}/${name}"
-    }
-    $creates_dir = $extract_dir
-  }
 
   case $ensure {
     present: {
 
+      if $nested_dir {
+        $extract_dir = $target
+        $creates_dir = "${target}/${name}"
+    
+      } else {
+        if $root_dir != '' {
+          $extract_dir = "${target}/${root_dir}"
+        } else {
+          $extract_dir = "${target}/${name}"
+        }
+        $creates_dir = $extract_dir
+      }
       $extract_zip    = "unzip -o ${src_target}/${name}.${extension} -d ${extract_dir}"
       $extract_targz  = "tar --no-same-owner --no-same-permissions --strip-components=${strip_components} -xzf ${src_target}/${name}.${extension} -C ${extract_dir}"
       $extract_tarxz  = "tar --no-same-owner --no-same-permissions --strip-components=${strip_components} -xJf ${src_target}/${name}.${extension} -C ${extract_dir}"
