@@ -41,6 +41,14 @@ define archive::extract (
   case $ensure {
     present: {
 
+      if $extension != 'zip' and $nested_dir {
+        fail("Param nested_dir just allowed in combination with unzip")
+      }
+    
+      if $strip_components > 0 and $extension != 'tar' {
+        fail('Param strip_components just allowed in combination with tar')
+      }
+    
       if $nested_dir {
         $extract_dir = $target
         $creates_dir = "${target}/${name}"
@@ -53,6 +61,7 @@ define archive::extract (
         }
         $creates_dir = $extract_dir
       }
+
       $extract_zip    = "unzip -o ${src_target}/${name}.${extension} -d ${extract_dir}"
       $extract_targz  = "tar --no-same-owner --no-same-permissions --strip-components=${strip_components} -xzf ${src_target}/${name}.${extension} -C ${extract_dir}"
       $extract_tarxz  = "tar --no-same-owner --no-same-permissions --strip-components=${strip_components} -xJf ${src_target}/${name}.${extension} -C ${extract_dir}"
