@@ -32,15 +32,23 @@ define archive::extract (
   $ensure           = present,
   $src_target       = '/usr/src',
   $root_dir         = '',
+  $nested_dir       = $name,
   $extension        = 'tar.gz',
   $timeout          = 120,
   $strip_components = 0,
   $exec_path        = ['/usr/local/bin', '/usr/bin', '/bin']) {
-
-  if $root_dir != '' {
-    $extract_dir = "${target}/${root_dir}"
+  
+  if $nested_dir {
+    $extract_dir = $target
+    $creates_dir = "${target}/${name}"
   } else {
-    $extract_dir = "${target}/${name}"
+    
+    if $root_dir != '' {
+      $extract_dir = "${target}/${root_dir}"
+    } else {
+      $extract_dir = "${target}/${name}"
+    }
+    $creates_dir = $extract_dir
   }
 
   case $ensure {
@@ -66,7 +74,7 @@ define archive::extract (
       exec {"Unpack ${name}":
         command => $unpack_command,
         path    => $exec_path,
-        creates => $extract_dir,
+        creates => $creates_dir,
         timeout => $timeout
       }
     }
