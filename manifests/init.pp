@@ -47,7 +47,7 @@ define archive (
   $digest_type      = 'md5',
   $timeout          = 120,
   $root_dir         = '',
-  $nested_dir       = $name,
+  $nested_dir       = undef,
   $extension        = 'tar.gz',
   $src_target       = '/usr/src',
   $allow_insecure   = false,
