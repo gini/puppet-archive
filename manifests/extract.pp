@@ -32,7 +32,7 @@ define archive::extract (
   $ensure           = present,
   $src_target       = '/usr/src',
   $root_dir         = '',
-  $nested_dir       = $name,
+  $nested_dir       = undef,
   $extension        = 'tar.gz',
   $timeout          = 120,
   $strip_components = 0,
