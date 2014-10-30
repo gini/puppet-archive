@@ -49,7 +49,7 @@ define archive::extract (
         fail('Param strip_components just allowed in combination with tar')
       }
     
-      if $nested_dir {
+      if $extension == 'zip' and $nested_dir {
         $extract_dir = $target
         $creates_dir = "${target}/${name}"
     
