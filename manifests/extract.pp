@@ -45,7 +45,7 @@ define archive::extract (
         fail("Param nested_dir just allowed in combination with unzip")
       }
     
-      if $strip_components > 0 and $extension != 'tar' {
+      if $strip_components > 0 and $extension !~ /(tar.gz|tgz|tar.xz|txz|tar.bz2|tbz|tbz2)/ {
         fail('Param strip_components just allowed in combination with tar')
       }
     
