@@ -32,19 +32,35 @@ define archive::extract (
   $ensure           = present,
   $src_target       = '/usr/src',
   $root_dir         = '',
+  $nested_dir       = undef,
   $extension        = 'tar.gz',
   $timeout          = 120,
   $strip_components = 0,
   $exec_path        = ['/usr/local/bin', '/usr/bin', '/bin']) {
 
-  if $root_dir != '' {
-    $extract_dir = "${target}/${root_dir}"
-  } else {
-    $extract_dir = "${target}/${name}"
-  }
-
   case $ensure {
     present: {
+
+      if $extension != 'zip' and $nested_dir {
+        fail("Param nested_dir just allowed in combination with unzip")
+      }
+    
+      if $strip_components > 0 and $extension !~ /(tar.gz|tgz|tar.xz|txz|tar.bz2|tbz|tbz2)/ {
+        fail('Param strip_components just allowed in combination with tar')
+      }
+    
+      if $extension == 'zip' and $nested_dir {
+        $extract_dir = $target
+        $creates_dir = "${target}/${name}"
+    
+      } else {
+        if $root_dir != '' {
+          $extract_dir = "${target}/${root_dir}"
+        } else {
+          $extract_dir = "${target}/${name}"
+        }
+        $creates_dir = $extract_dir
+      }
 
       $extract_zip    = "unzip -o ${src_target}/${name}.${extension} -d ${extract_dir}"
       $extract_targz  = "tar --no-same-owner --no-same-permissions --strip-components=${strip_components} -xzf ${src_target}/${name}.${extension} -C ${extract_dir}"
@@ -66,7 +82,7 @@ define archive::extract (
       exec {"Unpack ${name}":
         command => $unpack_command,
         path    => $exec_path,
-        creates => $extract_dir,
+        creates => $creates_dir,
         timeout => $timeout
       }
     }
