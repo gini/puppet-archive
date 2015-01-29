@@ -62,7 +62,7 @@ define archive (
   $packages = [ 'curl', 'unzip', 'tar', ]
 
   # install additional packages if missing
-  ensure_packages($packages, {ensure => installed})
+  ensure_packages($packages)
 
   archive::download {"${name}.${extension}":
     ensure          => $ensure,
