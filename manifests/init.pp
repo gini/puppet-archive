@@ -59,10 +59,10 @@ define archive (
   $exec_path        = ['/usr/local/bin', '/usr/bin', '/bin']) {
 
   # list of packages needed for download and extraction
-  $packages = [ 'curl', 'unzip', 'tar', ]
+  $packages = [ 'curl', 'unzip', 'tar' ]
 
   # install additional packages if missing
-  ensure_packages($packages, {ensure => installed})
+  ensure_packages($packages)
 
   archive::download {"${name}.${extension}":
     ensure          => $ensure,
