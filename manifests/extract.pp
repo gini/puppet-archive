@@ -44,7 +44,7 @@ define archive::extract (
   }
 
   case $ensure {
-    present: {
+    present, latest: {
 
       $extract_zip    = "unzip -o ${src_target}/${name}.${extension} -d ${extract_dir}"
       $extract_tar    = "tar --no-same-owner --no-same-permissions --strip-components=${strip_components} -xf ${src_target}/${name}.${extension} -C ${extract_dir}"
@@ -63,6 +63,16 @@ define archive::extract (
 
       if $unpack_command == 'UNKNOWN' {
         fail("Unknown extension value '${extension}'")
+      }
+
+      if $ensure == 'latest' {
+        exec { "Remove ${name}":
+          command     => "rm -rf ${extract_dir}",
+          path        => $exec_path,
+          timeout     => $timeout,
+          refreshonly => true,
+          before      => Exec["Unpack ${name}"]
+        }
       }
 
       exec {"Unpack ${name}":
