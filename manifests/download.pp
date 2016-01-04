@@ -91,7 +91,7 @@ define archive::download (
             }
 
             exec {"download digest of archive ${name}":
-              command => "curl ${basic_auth} ${insecure_arg} ${redirects_arg} ${proxy_arg} -s -o ${src_target}/${name}.${digest_type} ${digest_src}",
+              command => "curl -f ${basic_auth} ${insecure_arg} ${redirects_arg} ${proxy_arg} -s -o ${src_target}/${name}.${digest_type} ${digest_src}",
               path    => $exec_path,
               creates => "${src_target}/${name}.${digest_type}",
               timeout => $timeout,
@@ -152,7 +152,7 @@ define archive::download (
       }
 
       exec {"download archive ${name} and check sum":
-        command     => "curl ${basic_auth} -s ${insecure_arg} ${redirects_arg} ${proxy_arg} -o ${src_target}/${name} ${url}",
+        command     => "curl -f ${basic_auth} -s ${insecure_arg} ${redirects_arg} ${proxy_arg} -o ${src_target}/${name} ${url}",
         path        => $exec_path,
         creates     => "${src_target}/${name}",
         logoutput   => true,
